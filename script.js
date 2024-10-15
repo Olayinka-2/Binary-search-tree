@@ -127,6 +127,54 @@ class Tree {
          if(node.right) queue.push(node.right);
       }
    }
+
+   inOrderTraversal(callback) {
+      if(typeof callback !== 'function') {
+         throw new Error('Callback function is required');
+      }
+
+      let traverse = (node) => {
+         if(node === null) return;
+
+         traverse(node.left);
+         callback(node);
+         traverse(node.right);
+      }
+      traverse(this.root);
+      
+   }
+
+   preOrderTraversal(callback) {
+      if(typeof callback !== 'function') {
+         throw new Error('Callback function is required');
+      }
+
+      let traverse = (node) => {
+         if(node === null) return;
+
+         callback(node);
+         traverse(node.left);
+         traverse(node.right);
+      }
+      traverse(this.root);
+      
+   }
+
+   postOrderTraversal(callback) {
+      if(typeof callback !== 'function') {
+         throw new Error('Callback function is required');
+      }
+
+      let traverse = (node) => {
+         if(node === null) return;
+
+         traverse(node.left);
+         traverse(node.right);
+         callback(node);
+      }
+      traverse(this.root);
+      
+   }
 }
 
 
@@ -148,6 +196,7 @@ binaryTree.insert(100);
 binaryTree.remove(8);
 // console.log(binaryTree.find(24));
 // console.log(binaryTree);
-binaryTree.levelOrderTraversal(node => console.log(node.data));
+// binaryTree.levelOrderTraversal(node => console.log(node.data));
+binaryTree.preOrderTraversal(node => console.log(node.data));
 prettyPrint(binaryTree.root);
 // console.log(binaryTree.levelOrderTraversal());
