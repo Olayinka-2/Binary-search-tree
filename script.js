@@ -110,8 +110,22 @@ class Tree {
       return false;
    }
 
-   levelOrderTraversal(root) {
-      
+   levelOrderTraversal(callback) {
+
+      if(typeof callback !== 'function') {
+         throw new Error('Callback function is required');
+      }
+
+      if(!this.root) return;
+      const queue = [this.root];
+
+      while(queue.length > 0) {
+         const node = queue.shift();
+         callback(node);
+
+         if(node.left) queue.push(node.left);
+         if(node.right) queue.push(node.right);
+      }
    }
 }
 
@@ -132,7 +146,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 binaryTree.insert(100);
 binaryTree.remove(8);
-console.log(binaryTree.find(24));
+// console.log(binaryTree.find(24));
 // console.log(binaryTree);
-
-// prettyPrint(binaryTree.root);
+binaryTree.levelOrderTraversal(node => console.log(node.data));
+prettyPrint(binaryTree.root);
+// console.log(binaryTree.levelOrderTraversal());
