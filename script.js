@@ -87,6 +87,32 @@ class Tree {
       }
       return node;
    }
+
+   find(data) {
+      return this._find(this.root, data);
+   }
+
+   _find(root, data) {
+
+      if(root === null) {
+         return false;
+      }
+
+      if(root.data === data) {
+         return true;
+      }
+
+      if(data > root.data) {
+         return this._find(root.right, data);
+      } else if(data < root.data) {
+         return this._find(root.left, data);
+      }
+      return false;
+   }
+
+   levelOrderTraversal(root) {
+      
+   }
 }
 
 
@@ -106,6 +132,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 binaryTree.insert(100);
 binaryTree.remove(8);
-console.log(binaryTree);
+console.log(binaryTree.find(24));
+// console.log(binaryTree);
 
-prettyPrint(binaryTree.root);
+// prettyPrint(binaryTree.root);
