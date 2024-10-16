@@ -202,6 +202,31 @@ class Tree {
       }
       return depthCount;
    }
+
+   isBalanced() {
+      let rootNode = this.root;
+
+      if(rootNode === null) {
+         return -1;
+      }
+
+      let leftHeight = this.height(rootNode.left);
+      let rightHeight = this.height(rootNode.right);
+      
+      let difference = leftHeight - rightHeight;
+
+      if(difference > 1 || difference < -1) {
+         return false;
+      }
+      return true;
+   }
+
+   rebalance() {
+      let values = [];
+      this.inOrderTraversal(node => values.push(node.data));
+
+      this.root = this.buildArray(values);
+   }
 }
 
 
@@ -220,9 +245,13 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const binaryTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 binaryTree.insert(100);
+binaryTree.insert(102);
+binaryTree.insert(103);
 binaryTree.remove(8);
+binaryTree.rebalance();
+console.log(binaryTree.isBalanced());
 // binaryTree.inOrderTraversal(node => console.log(node.data));
-console.log(binaryTree.depth(binaryTree.root.left.right));
-console.log(binaryTree.height(binaryTree.root.left.right));
+// console.log(binaryTree.depth(binaryTree.root.left.right));
+// console.log(binaryTree.height(binaryTree.root.left.right));
 prettyPrint(binaryTree.root);
 // console.log(binaryTree.levelOrderTraversal());
